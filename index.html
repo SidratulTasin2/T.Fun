@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FUNVERSE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Inter,sans-serif;
+background:#050505;
+color:white;
+overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+.bg{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top left,#ff00aa33,transparent 20%),
+radial-gradient(circle at bottom right,#00ffd533,transparent 20%),
+radial-gradient(circle at center,#111,black 70%);
+z-index:-3;
+animation:bg 12s infinite alternate;
+}
+
+@keyframes bg{
+from{
+filter:hue-rotate(0deg);
+}
+to{
+filter:hue-rotate(60deg);
+}
+}
+
+/* STARS */
+
+.star{
+position:fixed;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+opacity:.7;
+animation:float linear infinite;
+}
+
+@keyframes float{
+from{
+transform:translateY(100vh);
+}
+to{
+transform:translateY(-100vh);
+}
+}
+
+/* HEADER */
+
+.hero{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+padding:20px;
+}
+
+.logo{
+font-size:120px;
+font-weight:900;
+line-height:1;
+
+background:linear-gradient(90deg,#fff,#00ffd5,#ff00aa);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+animation:pulse 3s infinite;
+}
+
+@keyframes pulse{
+0%,100%{
+transform:scale(1);
+}
+50%{
+transform:scale(1.03);
+}
+}
+
+.tag{
+font-size:24px;
+opacity:.75;
+margin-top:15px;
+margin-bottom:40px;
+}
+
+/* BUTTON */
+
+.enter{
+padding:18px 45px;
+font-size:22px;
+font-weight:800;
+border:none;
+border-radius:20px;
+cursor:pointer;
+background:white;
+color:black;
+transition:.3s;
+}
+
+.enter:hover{
+transform:scale(1.1) rotate(-2deg);
+background:#00ffd5;
+}
+
+/* SECTION */
+
+.section{
+padding:80px 30px;
+max-width:1400px;
+margin:auto;
+}
+
+.section-title{
+font-size:70px;
+font-weight:900;
+margin-bottom:40px;
+text-align:center;
+}
+
+/* GAMES */
+
+.games{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:35px;
+}
+
+.card{
+position:relative;
+overflow:hidden;
+
+padding:40px;
+border-radius:35px;
+
+background:rgba(255,255,255,.06);
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(25px);
+
+transition:.4s;
+}
+
+.card::before{
+content:"";
+position:absolute;
+width:300px;
+height:300px;
+background:linear-gradient(#ff00aa,#00ffd5);
+filter:blur(120px);
+opacity:.15;
+top:-100px;
+right:-100px;
+}
+
+.card:hover{
+transform:translateY(-15px) scale(1.02);
+}
+
+.icon{
+font-size:90px;
+margin-bottom:20px;
+}
+
+.card h2{
+font-size:45px;
+margin-bottom:15px;
+}
+
+.card p{
+line-height:1.6;
+opacity:.8;
+margin-bottom:25px;
+}
+
+/* PLAY BUTTON */
+
+.play{
+padding:16px 32px;
+border:none;
+border-radius:18px;
+font-size:18px;
+font-weight:800;
+cursor:pointer;
+background:white;
+transition:.3s;
+}
+
+.play:hover{
+transform:scale(1.1);
+background:#00ffd5;
+}
+
+/* LEADERBOARD */
+
+.leaderboard{
+margin-top:100px;
+padding:40px;
+border-radius:35px;
+background:rgba(255,255,255,.06);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.board-title{
+font-size:55px;
+font-weight:900;
+margin-bottom:30px;
+text-align:center;
+}
+
+.board{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.player{
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:22px;
+
+background:rgba(255,255,255,.05);
+
+border-radius:20px;
+
+font-size:22px;
+font-weight:700;
+
+transition:.3s;
+}
+
+.player:hover{
+transform:scale(1.02);
+background:rgba(255,255,255,.1);
+}
+
+/* POPUP */
+
+.popup{
+position:fixed;
+inset:0;
+display:none;
+justify-content:center;
+align-items:center;
+background:#000000dd;
+backdrop-filter:blur(15px);
+z-index:999;
+padding:20px;
+}
+
+.box{
+width:100%;
+max-width:700px;
+
+padding:40px;
+
+border-radius:35px;
+
+background:rgba(255,255,255,.08);
+
+border:1px solid rgba(255,255,255,.1);
+
+text-align:center;
+}
+
+.big{
+font-size:110px;
+font-weight:900;
+margin-bottom:25px;
+}
+
+.game-btn{
+width:220px;
+height:220px;
+border:none;
+border-radius:50%;
+cursor:pointer;
+
+font-size:35px;
+font-weight:900;
+
+background:linear-gradient(45deg,#ff00aa,#00ffd5);
+
+color:white;
+
+transition:.15s;
+}
+
+.game-btn:active{
+transform:scale(.92);
+}
+
+.close{
+margin-top:30px;
+padding:15px 35px;
+border:none;
+border-radius:15px;
+font-weight:700;
+cursor:pointer;
+}
+
+/* INPUT */
+
+input{
+padding:18px;
+width:280px;
+border:none;
+border-radius:15px;
+font-size:20px;
+margin-top:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.logo{
+font-size:65px;
+}
+
+.section-title{
+font-size:45px;
+}
+
+.big{
+font-size:60px;
+}
+
+.game-btn{
+width:150px;
+height:150px;
+font-size:25px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<!-- STARS -->
+
+<script>
+
+for(let i=0;i<150;i++){
+
+let s=document.createElement("div");
+
+s.classList.add("star");
+
+s.style.left=Math.random()*100+"vw";
+
+s.style.top=Math.random()*100+"vh";
+
+s.style.animationDuration=
+(Math.random()*12+6)+"s";
+
+document.body.appendChild(s);
+
+}
+
+</script>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="logo">
+FUNVERSE
+</div>
+
+<div class="tag">
+Beautiful internet experiments.
+</div>
+
+<button class="enter" onclick="scrollToGames()">
+ENTER
+</button>
+
+</section>
+
+<!-- GAMES -->
+
+<section class="section" id="games">
+
+<div class="section-title">
+GAMES
+</div>
+
+<div class="games">
+
+<div class="card">
+
+<div class="icon">🎯</div>
+
+<h2>Infinity Click</h2>
+
+<p>
+Click forever and compete globally.
+</p>
+
+<button class="play" onclick="openGame()">
+PLAY
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon">⚡</div>
+
+<h2>Reaction Test</h2>
+
+<p>
+How fast is your brain?
+</p>
+
+<button class="play">
+COMING SOON
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon">🧠</div>
+
+<h2>Mind Reader</h2>
+
+<p>
+The machine knows your thoughts.
+</p>
+
+<button class="play">
+COMING SOON
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="icon">🐍</div>
+
+<h2>Snake+</h2>
+
+<p>
+Modern snake in space.
+</p>
+
+<button class="play">
+COMING SOON
+</button>
+
+</div>
+
+</div>
+
+<!-- LEADERBOARD -->
+
+<div class="leaderboard">
+
+<div class="board-title">
+🏆 GLOBAL LEADERBOARD
+</div>
+
+<div class="board" id="board">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- POPUP -->
+
+<div class="popup" id="popup">
+
+<div class="box">
+
+<div class="big" id="score">
+0
+</div>
+
+<button class="game-btn" onclick="clickPoint()">
+CLICK
+</button>
+
+<br>
+
+<input id="playerName" placeholder="Your name">
+
+<br>
+
+<button class="close" onclick="saveAndClose()">
+SAVE SCORE
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* SCROLL */
+
+function scrollToGames(){
+
+document.getElementById("games")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+/* LEADERBOARD */
+
+let leaderboard=
+JSON.parse(localStorage.getItem("funverse_board"))
+|| [];
+
+/* DEFAULT PLAYERS */
+
+if(leaderboard.length===0){
+
+leaderboard=[
+
+{name:"Alex",score:9999},
+{name:"Sarah",score:8888},
+{name:"Tasin",score:7777},
+{name:"Neon",score:6500}
+
+];
+
+localStorage.setItem(
+"funverse_board",
+JSON.stringify(leaderboard)
+);
+
+}
+
+function renderBoard(){
+
+const board=document.getElementById("board");
+
+board.innerHTML="";
+
+leaderboard.sort((a,b)=>b.score-a.score);
+
+leaderboard.slice(0,10).forEach((p,index)=>{
+
+let medal="🎮";
+
+if(index===0) medal="🥇";
+if(index===1) medal="🥈";
+if(index===2) medal="🥉";
+
+board.innerHTML += `
+
+<div class="player">
+
+<span>${medal} ${p.name}</span>
+
+<span>${p.score}</span>
+
+</div>
+
+`;
+
+});
+
+}
+
+renderBoard();
+
+/* GAME */
+
+let score=0;
+
+function openGame(){
+
+document.getElementById("popup")
+.style.display="flex";
+
+score=0;
+
+document.getElementById("score")
+.innerText=score;
+
+}
+
+function clickPoint(){
+
+score++;
+
+document.getElementById("score")
+.innerText=score;
+
+document.body.style.filter=
+`hue-rotate(${score*5}deg)`;
+
+}
+
+/* SAVE */
+
+function saveAndClose(){
+
+let name=
+document.getElementById("playerName").value;
+
+if(name.trim()===""){
+name="Guest";
+}
+
+leaderboard.push({
+name:name,
+score:score
+});
+
+leaderboard.sort((a,b)=>b.score-a.score);
+
+leaderboard=leaderboard.slice(0,10);
+
+localStorage.setItem(
+"funverse_board",
+JSON.stringify(leaderboard)
+);
+
+renderBoard();
+
+document.getElementById("popup")
+.style.display="none";
+
+}
+
+/* RANDOM TITLE CHANGE */
+
+const titles=[
+"FUNVERSE",
+"INTERNET MACHINE",
+"STRANGE WEBSITE",
+"DO NOT CLICK",
+"FUN EXPERIMENT"
+];
+
+setInterval(()=>{
+
+document.querySelector(".logo")
+.innerText=
+titles[
+Math.floor(Math.random()*titles.length)
+];
+
+},4000);
+
+</script>
+
+</body>
+</html>
